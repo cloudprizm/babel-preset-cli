@@ -20,14 +20,14 @@ const preset = declare((api, opts) => ({
   ]
 }))
 
-preset.bootstrap = ({ cwd, presets } = {}) =>
+preset.bootstrap = ({ cwd, presets, ...rest } = {}) =>
   require("@babel/register")({
-    ignore: [/node_modules/],
     presets: ['@hungry/babel-preset-cli'].concat([] || presets),
     extensions: [".ts", ".tsx"],
     cwd,
     babelrc: true,
-    cache: true
+    cache: true,
+    ...rest
   })
 
 module.exports = preset
