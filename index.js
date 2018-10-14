@@ -1,4 +1,6 @@
 const { declare } = require("@babel/helper-plugin-utils")
+const { addHook } = require("pirates")
+const { transformSync } = require("@babel/core")
 
 const preset = declare((api, opts) => ({
   presets: [
@@ -20,14 +22,33 @@ const preset = declare((api, opts) => ({
   ]
 }))
 
-preset.bootstrap = ({ cwd, presets, ...rest } = {}) =>
-  require("@babel/register")({
-    presets: ['@hungry/babel-preset-cli'].concat([] || presets),
-    extensions: [".ts", ".tsx"],
-    cwd,
-    babelrc: true,
-    cache: true,
-    ...rest
+// RUNTIME TRANSPILATION PART
+
+let alreadyHooked
+
+preset.bootstrap = ({ cwd, presets, extensions, matcher, ...rest } = {}) => {
+  const compile = (code, filename) =>
+    transformSync(code, {
+      filename,
+      presets: ['@hungry/cli'],
+      babelrc: false,
+      configFile: false,
+      ...rest
+    }).code
+
+  alreadyHooked = addHook(compile, {
+    exts: extensions || [".ts", ".tsx"],
+    ignoreNodeModules: !matcher ? true : false,
+    matcher: matcher ? matcher : () => true,
   })
+
+  return alreadyHooked
+}
+
+preset.disableRuntimeTranspilation = () => {
+  if (alreadyHooked) alreadyHooked()
+}
+
+preset.enableRuntimeTranspilation = preset.bootstrap
 
 module.exports = preset

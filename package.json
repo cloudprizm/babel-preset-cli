@@ -19,7 +19,8 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-typescript": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "@babel/runtime": "^7.0.0"
+    "pirates": "^4.0.0",
+    "@babel/core": "^7.0.0"
   },
   "homepage": "https://github.com/hungry-consulting/babel-preset-cli"
 }
