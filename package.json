@@ -15,7 +15,8 @@
   },
   "scripts": {
     "build": "echo ''",
-    "test": "echo ''"
+    "test": "echo ''",
+    "watch": "echo ''"
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
