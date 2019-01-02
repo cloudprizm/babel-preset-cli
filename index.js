@@ -26,17 +26,26 @@ const preset = declare((api, opts) => ({
 
 let alreadyHooked
 
-preset.bootstrap = ({ cwd, presets, extensions, matcher, ...rest } = {}) => {
-  const compile = (code, filename) =>
-    transformSync(code, {
-      filename,
-      presets: ['@hungry/cli'],
-      babelrc: false,
-      configFile: false,
-      ...rest
-    }).code
+preset.TRANSFORMER_NAME = "hungry-runtime-transformer"
 
-  alreadyHooked = addHook(compile, {
+const transform = (code, filename, extras) =>
+  transformSync(code, {
+    filename,
+    presets: ['@hungry/cli'],
+    caller: {
+      name: preset.TRANSFORMER_NAME
+    },
+    babelrc: false,
+    configFile: false,
+    ...extras
+  }).code
+
+preset.transform = transform
+
+preset.bootstrap = ({ cwd, presets, extensions, matcher, ...rest } = {}) => {
+  require('source-map-support').install()
+
+  alreadyHooked = addHook(transform, {
     exts: extensions || [".ts", ".tsx"],
     ignoreNodeModules: !matcher ? true : false,
     matcher: matcher ? matcher : () => true,
