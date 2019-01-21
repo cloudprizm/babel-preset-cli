@@ -1,6 +1,6 @@
 {
   "name": "@hungry/babel-preset-cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Node.js preset for babel, with typescript and import/export syntax",
   "main": "index.js",
   "repository": {
@@ -29,8 +29,8 @@
     "@babel/preset-typescript": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-core": "7.0.0-bridge.0",
-    "source-map-support": "^0.5.9",
-    "pirates": "^4.0.0"
+    "pirates": "^4.0.0",
+    "source-map-support": "^0.5.9"
   },
   "homepage": "https://github.com/hungry-consulting/babel-preset-cli"
 }
