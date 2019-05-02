@@ -1,6 +1,6 @@
 {
   "name": "@hungry/babel-preset-cli",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Node.js preset for babel, with typescript and import/export syntax",
   "main": "index.js",
   "repository": {
