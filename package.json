@@ -32,5 +32,6 @@
     "pirates": "^4.0.0",
     "source-map-support": "^0.5.9"
   },
-  "homepage": "https://github.com/hungry-consulting/babel-preset-cli"
+  "homepage": "https://github.com/hungry-consulting/babel-preset-cli",
+  "gitHead": "6b24ba62801e2721446a7d0e5e94cb16cd36eadd"
 }
